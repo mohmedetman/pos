@@ -1,0 +1,62 @@
+.dark-layout {
+  //css here for dark layouts
+  .service-item-current-style1 {
+    background-color: $dark-bg-lighter;
+    .service-content{
+      background-color: $dark-bg-lighter;
+    }
+  }
+  .about-box {
+    .help-details{
+      background-color: $dark-bg-lighter;
+    }
+  }
+  .icon-box {
+    .icon{
+      &.icon-gray{
+        background-color: $dark-bg-lighter;
+      }
+    }
+  }
+  .tm-sc-team-box {
+    .tm-content{
+      background-color: $dark-bg-lighter;
+    }
+  }
+  .tm-sc-testimonials{
+    &.testimonials-style-current-theme{
+      .testimonial-text-holder{
+        background-color: $dark-bg-lightest;
+      }
+    }
+  }
+  .booking-form{
+    background-color: $dark-bg-lightest;
+  }
+  .company-service{
+    &:before{
+      background-color: $dark-bg-light;
+    }
+  }
+  .border-top,
+  .service-icobox-homelayout1{
+    border: 1px solid $dark-bg-lightest;
+  }
+  .pricing-table-homelayout1 {
+    .pricing-table{
+      background-color: $dark-bg-lightest;
+    }
+  }
+  .why-chose-iconbox-homelayout1,
+  .why-chose-iconbox-homelayout2,
+  .tm-sc-departments-tab{
+    background-color: $dark-bg-lightest;
+  }
+  .blog-style1-current-theme{
+    .post{
+      .entry-content{
+        background-color: $dark-bg-lightest;
+      }
+    }
+  }
+}
