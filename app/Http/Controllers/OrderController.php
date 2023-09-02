@@ -48,34 +48,8 @@ class OrderController extends Controller
      */
     public function store(Request $request,Client $client)
     {
+        $this->attach_order($request, $client);
 
-        $client = Client::findorFail($request->id);
-        // dd(Product::find(1)) ;
-
-
-    $order = $client->orders()->create([
-        'client_id'=>$request->id,
-        'total_price'=>0
-    ]);
-// return $request ;
-        $order->product()->attach($request->products);
-
-        $total_price = 0;
-
-        foreach ($request->products as $id => $quantity) {
-
-            $product = Product::FindOrFail($id);
-            $total_price += $product->sale_price * $quantity['quantity'];
-
-            $product->update([
-                'stock' => $product->stock - $quantity['quantity']
-            ]);
-
-        }//end of foreach
-
-        $order->update([
-            'total_price' => $total_price
-        ]);
 
 
     // $user = Or::find(1);
@@ -120,16 +94,43 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id_client,$id_order)
     {
-        //
+
+         $categories = Category::with('products')->get();
+         $orders =Client::find($id_client)->orders;
+         $client =Client::find($id_client);
+         $order = Order::find($id_order);
+       // return $id1 ;
+        // return $categories;
+      //  return ;
+        // foreach ( as $item)
+        // dd( $item->product) ;
+        // dd($orders);
+      //  dd($client->orders);
+        // $categories = Category::all();
+        // $orders=Order::all();
+      //  $orders = $client->orders()->with('products')->paginate(5);
+       // dd(Order::find(2)->product);
+       return view('clients.order.edit', compact('client', 'order', 'categories', 'orders'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$client,$order)
     {
+
+        //return $client->id ;
+         $this->deattach_order($order);
+         $c = Client::findorFail($client);
+         $this->attach_order($request, $c);
+        //$this-> deattach_order($id2);
+
+       // $this-> attach_order($request,$id1);
+
+       // return $request ;
         //
     }
 
@@ -138,8 +139,13 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
+        $this-> deattach_order($id);
         //return
     //    Order::find($id)->product->pivot->quantity;
+
+
+    }
+    public function deattach_order($id){
         foreach (  Order::find($id)->product as $product){
             $product->update([
                 'stock'=> $product->pivot->quantity + $product->stock,
@@ -147,7 +153,41 @@ class OrderController extends Controller
         }
         $order = Order::find($id);
         $order->delete();
-        dd("done");
+        // dd("done");
 
     }
+    public function attach_order($request, $client) {
+
+        $client = Client::findorFail($request->id);
+        // dd(Product::find(1)) ;
+
+
+    $order = $client->orders()->create([
+        'client_id'=>$request->id,
+        'total_price'=>0
+    ]);
+// return $request ;
+        $order->product()->attach($request->products);
+
+        $total_price = 0;
+
+        foreach ($request->products as $id => $quantity) {
+
+            $product = Product::FindOrFail($id);
+            $total_price += $product->sale_price * $quantity['quantity'];
+
+            $product->update([
+                'stock' => $product->stock - $quantity['quantity']
+            ]);
+
+        }//end of foreach
+
+        $order->update([
+            'total_price' => $total_price
+        ]);
+
+
+
+    }
+
 }

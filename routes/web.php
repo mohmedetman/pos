@@ -12,12 +12,16 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
-
+// Route::resource('users', UserController::class);
 
 // Route::get('/order/products/{id}','OrderController@products');
 route::get('/order/products/{id}', [OrderController::class, 'products']);//ProductController
-route::get('/order/destroy/{id}', [OrderController::class, 'destroy']);//ProductController
+route::get('/order/destroy/{id}', [OrderController::class, 'destroy']);
+//ProductController
+Route::get('/client/{id}/order/{username}', [OrderController::class, 'edit'])->name('order.edit');
+Route::put('/clients/{id}/orders/{username}/update', [OrderController::class, 'update'])->name('clients.orders.update');
 
+// route::get('//edit', );//ProductController
 
 route::get('/order/{id}', [OrderController::class, 'index'])->name('order.index');//ProductController
 route::get('/order', [OrderController::class, 'create']);//ProductController
@@ -41,7 +45,7 @@ route::post('/category/store', [CategoryController::class, 'store']);
 
 route::get('/users', [UserController::class, 'index'])->name('user.index');
 
-Route::resource('users', UserController::class);
+
 route::post('/users/store', [UserController::class, 'store']);
 
 

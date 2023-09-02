@@ -73,7 +73,8 @@
                                                     @lang('site.show')
                                                 </button>
                                                     <a href=
-                                                    {{-- "{{url('dashboard.clients.orders.edit', ['client' => $order->client->id, 'order' => $order->id]) }}" --}}
+                                                    "{{route('order.edit', ['id' => $order->client->id, 'username' =>  $order->id]);}}"
+                                                    {{-- "{{url('clients/orders/edit', ['client' => $order->client->id, 'order' => $order->id]) }}" --}}
                                                     class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i> @lang('site.edit')</a>
 
                                                     {{-- <form action="{{ url('order/destroy', $order->id) }}" method="post" style="display: inline-block;">

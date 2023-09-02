@@ -8,7 +8,7 @@
           <div class="row">
             <div class="col-md-12" style="margin-top:10px ">
                 <div style="margin:0 0 20px 0 ">
-                <form action="{{ route('users.index') }}" method="GET" class="form-inline">
+                <form action="{{ url('users.index') }}" method="GET" class="form-inline">
                     <div class="form-group mr-2">
                         <input type="text" name="email" class="form-control" placeholder="Email">
                     </div>
